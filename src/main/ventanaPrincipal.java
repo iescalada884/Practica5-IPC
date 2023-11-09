@@ -17,6 +17,9 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.DropMode;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 public class ventanaPrincipal {
 
@@ -61,15 +64,18 @@ public class ventanaPrincipal {
 		superior.add(menu);
 		
 		JMenu Archivo = new JMenu("Archivo");
+		Archivo.setMnemonic('a');
 		menu.add(Archivo);
 		
 		JMenuItem AAbrir = new JMenuItem("Abrir...");
+		AAbrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
 		Archivo.add(AAbrir);
 		
 		JSeparator separator = new JSeparator();
 		Archivo.add(separator);
 		
 		JMenu Edicion = new JMenu("Edicion");
+		Edicion.setMnemonic('e');
 		Edicion.setHorizontalAlignment(SwingConstants.RIGHT);
 		menu.add(Edicion);
 		
@@ -84,6 +90,7 @@ public class ventanaPrincipal {
 		
 		JTextPane texto = new JTextPane();
 		center.setViewportView(texto);
+		
 	}
 
 }
