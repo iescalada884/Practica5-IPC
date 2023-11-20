@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledEditorKit.FontFamilyAction;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -19,12 +21,18 @@ import javax.swing.DropMode;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.CardLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.Box;
+import java.awt.Component;
+import java.awt.Dimension;
 
 public class ventanaPrincipal {
 
@@ -58,7 +66,7 @@ public class ventanaPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 833, 440);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel superior = new JPanel();
@@ -68,6 +76,7 @@ public class ventanaPrincipal {
 		JMenuBar menu = new JMenuBar();
 		superior.add(menu);
 		
+		/*Pestaña de Archivo*/
 		JMenu Archivo = new JMenu("Archivo");
 		Archivo.setMnemonic('a');
 		menu.add(Archivo);
@@ -93,9 +102,10 @@ public class ventanaPrincipal {
 		JSeparator separator = new JSeparator();
 		Archivo.add(separator);
 		
-		JMenuItem Cerrar = new JMenuItem("Cerrar");
-		Archivo.add(Cerrar);
+		JMenuItem ACerrar = new JMenuItem("Cerrar");
+		Archivo.add(ACerrar);
 		
+		/*Pestaña de Edicion*/
 		JMenu Edicion = new JMenu("Edicion");
 		Edicion.setMnemonic('e');
 		Edicion.setHorizontalAlignment(SwingConstants.LEFT);
@@ -117,18 +127,54 @@ public class ventanaPrincipal {
 		EBuscarReemplazar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		Edicion.add(EBuscarReemplazar);
 		
+		/*Barra de herraminetas*/
 		JToolBar herramientas = new JToolBar();
 		superior.add(herramientas);
 		
-		JButton boton = new JButton("");
-		boton.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-32.png")));
-		boton.setToolTipText("Alinear centro");
-		herramientas.add(boton);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setMaximumSize(new Dimension(230, 40));
+		herramientas.add(comboBox);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setToolTipText("Alinear izquierda");
-		btnNewButton.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
-		herramientas.add(btnNewButton);
+		JButton bTamano = new JButton("");
+		bTamano.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
+		bTamano.setSelectedIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
+		bTamano.setToolTipText("cambiar tamaño letra");
+		herramientas.add(bTamano);
+		
+		JButton bColor = new JButton("");
+		bColor.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
+		bColor.setToolTipText("color del texto");
+		bColor.setVerticalAlignment(SwingConstants.BOTTOM);
+		herramientas.add(bColor);
+		
+		JButton bCursiva = new JButton("");
+		bCursiva.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-cursiva-25.png")));
+		bCursiva.setToolTipText("cursiva");
+		herramientas.add(bCursiva);
+		
+		JButton bSubrayar = new JButton("");
+		bSubrayar.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-subrayar-25.png")));
+		bSubrayar.setToolTipText("subrayar");
+		bSubrayar.setVerticalAlignment(SwingConstants.BOTTOM);
+		herramientas.add(bSubrayar);
+		
+		JButton bAlinearDer = new JButton("");
+		bAlinearDer.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/alinearDerecha.png")));
+		bAlinearDer.setToolTipText("Alinear a la derecha");
+		herramientas.add(bAlinearDer);
+		
+		JButton bAlinearCen = new JButton("");
+		bAlinearCen.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-25 .png")));
+		bAlinearCen.setToolTipText("Alinear centro");
+		herramientas.add(bAlinearCen);
+		
+		JButton bAlinearIz = new JButton("");
+		bAlinearIz.setToolTipText("Alinear izquierda");
+		bAlinearIz.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
+		herramientas.add(bAlinearIz);
+		
+		Box verticalBox = Box.createVerticalBox();
+		herramientas.add(verticalBox);
 		
 		JScrollPane center = new JScrollPane();
 		frame.getContentPane().add(center, BorderLayout.CENTER);
@@ -136,6 +182,15 @@ public class ventanaPrincipal {
 		JTextPane texto = new JTextPane();
 		center.setViewportView(texto);
 		
+		
+		//Acciones
+		ACerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 }
