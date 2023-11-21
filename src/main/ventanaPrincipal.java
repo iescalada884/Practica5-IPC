@@ -1,45 +1,43 @@
 package main;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JToolBar;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledEditorKit.FontFamilyAction;
-import javax.swing.JMenuItem;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import javax.swing.JSeparator;
-import javax.swing.JTextPane;
-import javax.swing.DropMode;
-import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.awt.CardLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BoxLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+
+import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.Box;
-import java.awt.Component;
-import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextPane;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+
+import TextUtilities.Editor;
 
 public class ventanaPrincipal {
 
 	private JFrame frame;
 
+	private JTextPane texto;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -128,6 +126,14 @@ public class ventanaPrincipal {
 		JMenuItem EBuscarReemplazar = new JMenuItem("Buscar y Reemplazar");
 		EBuscarReemplazar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		Edicion.add(EBuscarReemplazar);
+		
+		JMenu Formato = new JMenu("Formato");
+		Formato.setMnemonic('f');
+		menu.add(Formato);
+		
+		JMenuItem FNegrita = new JMenuItem("Poner en Negrita");
+		FNegrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
+		Formato.add(FNegrita);
 
 		/*Barra de herraminetas*/
 		JToolBar herramientas = new JToolBar();
@@ -136,12 +142,19 @@ public class ventanaPrincipal {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setMaximumSize(new Dimension(230, 40));
 		herramientas.add(comboBox);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		herramientas.add(horizontalStrut);
 
 		JButton bTamano = new JButton("");
 		bTamano.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
 		bTamano.setSelectedIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
 		bTamano.setToolTipText("cambiar tamaño letra");
 		herramientas.add(bTamano);
+		
+		JButton bNegrita = new JButton("");
+		bNegrita.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-negrita-25.png")));
+		herramientas.add(bNegrita);
 
 		JButton bColor = new JButton("");
 		bColor.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
@@ -181,11 +194,11 @@ public class ventanaPrincipal {
 		JScrollPane center = new JScrollPane();
 		frame.getContentPane().add(center, BorderLayout.CENTER);
 
-		JTextPane texto = new JTextPane();
+		texto = new JTextPane();
 		center.setViewportView(texto);
 
 
-		//Acciones
+		/*Acciones*/
 		ACerrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -216,6 +229,65 @@ public class ventanaPrincipal {
 
 			}
 		});
+		
+		//Edicion//
+		ECopiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				texto.copy();
+			}
+		});
+		
+		ECortar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				texto.cut();
+			}
+		});
+		
+		EPegar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				texto.paste();
+			}
+		});
+		
+		EBuscarReemplazar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reemplazar("hola", "pene");
+			}
+		});
+		
+		//Formato//
+		FNegrita.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				negrita();
+			}
+		});
+		
+		bNegrita.addMouseListener(new MouseAdapter() { 
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				negrita();
+			}
+		});
+		
+		
+	}
+	
+	private void negrita() {
+		Editor.ponerEnNegrita(texto.getStyledDocument(), texto.getSelectionStart(), texto.getSelectionEnd(), true);
 	}
 
+	private void reemplazar(String objetivo, String cambio) {
+		String text = texto.getText();
+		
+		text.replace(objetivo, cambio);
+		
+		System.out.print(text);
+
+		texto.setText(text);
+	}
 }
