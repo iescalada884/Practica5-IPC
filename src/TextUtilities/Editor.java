@@ -2,33 +2,95 @@ package TextUtilities;
 
 import java.awt.Color;
 
-
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
 
 public class Editor {
 	public enum Alienamientos{CENTRAR, DERECHA, IZQUIERDA}
-	 
-	public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int finSeleccion, boolean poner) {
+
+public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int finSeleccion) {
+		
+		Element element = doc.getCharacterElement(inicioSeleccion);
+	    AttributeSet attributes = element.getAttributes();
+	    boolean NoesNegrita = !(StyleConstants.isBold(attributes));
+	    
+	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
+	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
+	    	element = doc.getCharacterElement(inicioSeleccion);
+		    attributes = element.getAttributes();
+
+			StyleConstants.setItalic(atributos, StyleConstants.isItalic(attributes));
+
+		    StyleConstants.setUnderline(atributos,StyleConstants.isUnderline(attributes));
+
+	    	StyleConstants.setBold(atributos, NoesNegrita);
+
+	    	doc.setCharacterAttributes(i, 1, atributos, true);
+	    }
+	}
+	
+	public static void ponerSubrayado(StyledDocument doc, int inicioSeleccion, int finSeleccion) {
+
+		Element element = doc.getCharacterElement(inicioSeleccion);
+	    AttributeSet attributes = element.getAttributes();
+	    boolean NoesSubrayado = !(StyleConstants.isUnderline(attributes));
+	    
+	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
+	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
+	    	element = doc.getCharacterElement(inicioSeleccion);
+		    attributes = element.getAttributes();
+
+			StyleConstants.setItalic(atributos, StyleConstants.isItalic(attributes));
+
+		    StyleConstants.setUnderline(atributos,NoesSubrayado);
+
+	    	StyleConstants.setBold(atributos, StyleConstants.isBold(attributes));
+
+	    	doc.setCharacterAttributes(i, 1, atributos, true);
+	    }
+	}
+	
+	public static void ponerTipoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, String family) {
 		//Si poner es true pone en negrita, si es falso quita la negrita
 
 
 		SimpleAttributeSet atributos = new SimpleAttributeSet();
 
-		StyleConstants.setBold(atributos, poner);
+		StyleConstants.setFontFamily(atributos, family);
+
+		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
+	}
+	
+	public static void ponerTamanhoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, int tamanho) {
+
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+
+		StyleConstants.setFontSize(atributos, tamanho);
 
 		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
 	}
 
-	public static void ponerEnCursiva(StyledDocument doc, int inicioSeleccion, int finSeleccion, boolean poner) {
-		//Si poner es true pone en cursiva, si es falso quita la cursiva
+	public static void ponerEnCursiva(StyledDocument doc, int inicioSeleccion, int finSeleccion) {
+		Element element = doc.getCharacterElement(inicioSeleccion);
+	    AttributeSet attributes = element.getAttributes();
+	    boolean NoesCursiva = !(StyleConstants.isItalic(attributes));
+	    
+	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
+	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
+	    	element = doc.getCharacterElement(inicioSeleccion);
+		    attributes = element.getAttributes();
 
-		SimpleAttributeSet atributos = new SimpleAttributeSet();
+			StyleConstants.setItalic(atributos, NoesCursiva);
 
-		StyleConstants.setItalic(atributos, poner);
+		    StyleConstants.setUnderline(atributos,StyleConstants.isUnderline(attributes));
 
-		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
+	    	StyleConstants.setBold(atributos, StyleConstants.isBold(attributes));
+
+	    	doc.setCharacterAttributes(i, 1, atributos, true);
+	    }
 	}
 
 	public static void ponerColor(StyledDocument doc, int inicioSeleccion, int finSeleccion, Color color) {
@@ -47,16 +109,6 @@ public class Editor {
 		SimpleAttributeSet atributos = new SimpleAttributeSet();
 
 		StyleConstants.setBackground(atributos, color);
-
-		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
-	}
-
-	public static void ponerColor(StyledDocument doc, int inicioSeleccion, int finSeleccion, int tamanho) {
-		//Si poner es true pone en cursiva, si es falso quita la cursiva
-
-		SimpleAttributeSet atributos = new SimpleAttributeSet();
-
-		StyleConstants.setFontSize(atributos, tamanho);
 
 		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
 	}
@@ -95,5 +147,6 @@ public class Editor {
 
 		doc.setParagraphAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, centrar, false);
 	}
+
 
 }
