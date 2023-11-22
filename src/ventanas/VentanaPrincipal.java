@@ -39,12 +39,14 @@ import javax.swing.SwingConstants;
 import TextUtilities.Editor;
 import javax.swing.JSpinner;
 import java.awt.Choice;
+import javax.swing.SpinnerNumberModel;
 
 public class VentanaPrincipal {
 
 	private JFrame frame;
 
 	private JTextPane texto;
+	
 
 	/**
 	 * Launch the application.
@@ -190,21 +192,29 @@ public class VentanaPrincipal {
 		TipoLetra.setToolTipText("Tipo de letra");
 		TipoLetra.setMaximumSize(new Dimension(230, 40));
 		herramientas.add(TipoLetra);
-
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		herramientas.add(horizontalStrut);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setToolTipText("tamaño letra");
+		spinner.setModel(new SpinnerNumberModel(Integer.valueOf(10), Integer.valueOf(1), null, Integer.valueOf(1)));
+		spinner.setMaximumSize(new Dimension(50, 32767));
+		spinner.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		herramientas.add(spinner);
 
 		JButton bTamano = new JButton("");
 		bTamano.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
 		bTamano.setSelectedIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
-		bTamano.setToolTipText("cambiar tama�o letra");
+		bTamano.setToolTipText("Aplicar tamaño letra");
 		herramientas.add(bTamano);
-
-		JButton bColor = new JButton("");
-		bColor.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
-		bColor.setToolTipText("color del texto");
-		bColor.setVerticalAlignment(SwingConstants.BOTTOM);
-		herramientas.add(bColor);
+				
+						JButton bColor = new JButton("");
+						bColor.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
+						bColor.setToolTipText("color del texto");
+						bColor.setVerticalAlignment(SwingConstants.BOTTOM);
+						herramientas.add(bColor);
+		
+				Component horizontalStrut = Box.createHorizontalStrut(20);
+				horizontalStrut.setMaximumSize(new Dimension(10, 32767));
+				herramientas.add(horizontalStrut);
 
 		JButton bNegrita = new JButton("");
 		bNegrita.setToolTipText("Negrita");
@@ -234,6 +244,10 @@ public class VentanaPrincipal {
 		bSubrayar.setToolTipText("subrayar");
 		bSubrayar.setVerticalAlignment(SwingConstants.BOTTOM);
 		herramientas.add(bSubrayar);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+		horizontalStrut_1.setMaximumSize(new Dimension(10, 32767));
+		herramientas.add(horizontalStrut_1);
 
 		JButton bAlinearIz = new JButton("");
 		bAlinearIz.setToolTipText("Alinear izquierda");
@@ -346,6 +360,16 @@ public class VentanaPrincipal {
 				
 			}
 		});
+
+		//Activar el cambio de tamano
+		bTamano.addMouseListener(new MouseAdapter() { 
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Editor.ponerTamanhoLetra(texto.getStyledDocument(), texto.getSelectionStart(), texto.getSelectionEnd(),
+						(int) spinner.getValue());
+			}
+		});
+		
 
 		
 		FNegrita.addActionListener(new ActionListener() {

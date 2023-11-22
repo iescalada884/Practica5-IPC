@@ -1,14 +1,13 @@
 package ventanas;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Window.Type;
 import javax.swing.SwingConstants;
-import java.awt.Toolkit;
 
 public class VentanaMensaje extends JFrame {
 

@@ -1,6 +1,8 @@
 package ventanas;
 
 import java.awt.Container;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,9 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import TextUtilities.TextUtilities;
-import java.awt.Toolkit;
-import java.awt.Window.Type;
-import java.awt.Point;
 
 public class BuscarYReemplazar extends JFrame {
 
