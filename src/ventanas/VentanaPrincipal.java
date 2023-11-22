@@ -28,6 +28,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import TextUtilities.Editor;
@@ -244,6 +245,7 @@ public class VentanaPrincipal {
 		herramientas.add(verticalBox);
 
 		JScrollPane center = new JScrollPane();
+		center.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(center, BorderLayout.CENTER);
 
 		texto = new JTextPane();
