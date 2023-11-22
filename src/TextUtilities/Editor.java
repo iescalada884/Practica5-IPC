@@ -108,9 +108,9 @@ public class Editor {
     	for (int i = inicioSeleccion; i <= finSeleccion; i++) {
     		//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
     		SimpleAttributeSet atributos = new SimpleAttributeSet();
-    		element = doc.getCharacterElement(inicioSeleccion);
+    		Element element = doc.getCharacterElement(inicioSeleccion);
     		//atributos antiguos de cada letra
-	    	attributes = element.getAttributes();
+    		AttributeSet attributes = element.getAttributes();
 	    	
 	    	/********************************************************************
 	    	 * 
@@ -146,9 +146,9 @@ public class Editor {
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	element = doc.getCharacterElement(inicioSeleccion);
+	    	Element element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-		    attributes = element.getAttributes();
+	    	AttributeSet attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
@@ -227,9 +227,9 @@ public class Editor {
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	element = doc.getCharacterElement(inicioSeleccion);
+	    	Element element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-		    attributes = element.getAttributes();
+	    	AttributeSet attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
@@ -243,7 +243,7 @@ public class Editor {
 		    
 		    StyleConstants.setFontSize(atributos, StyleConstants.getFontSize(attributes));
 
-			StyleConstants.setItalic(atributos, NoesCursiva);
+			StyleConstants.setItalic(atributos, StyleConstants.isItalic(attributes));
 
 			StyleConstants.setFontFamily(atributos, StyleConstants.getFontFamily(attributes));
 
@@ -265,9 +265,9 @@ public class Editor {
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	element = doc.getCharacterElement(inicioSeleccion);
+	    	Element element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-		    attributes = element.getAttributes();
+	    	AttributeSet attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
@@ -281,7 +281,7 @@ public class Editor {
 		    
 		    StyleConstants.setFontSize(atributos, StyleConstants.getFontSize(attributes));
 
-			StyleConstants.setItalic(atributos, NoesCursiva);
+			StyleConstants.setItalic(atributos, StyleConstants.isItalic(attributes));
 
 			StyleConstants.setFontFamily(atributos, StyleConstants.getFontFamily(attributes));
 
