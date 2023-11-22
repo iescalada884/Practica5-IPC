@@ -2,8 +2,10 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +13,12 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import javax.swing.Box;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,6 +37,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import TextUtilities.Editor;
+import javax.swing.JSpinner;
+import java.awt.Choice;
 
 public class VentanaPrincipal {
 
@@ -129,7 +136,7 @@ public class VentanaPrincipal {
 		JSeparator separator_3 = new JSeparator();
 		Edicion.add(separator_3);
 
-		JMenuItem EBuscarReemplazar = new JMenuItem("Buscar y Reemplazar");
+		JMenuItem EBuscarReemplazar = new JMenuItem("Buscar y Reemplazar...");
 		EBuscarReemplazar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		Edicion.add(EBuscarReemplazar);
 
@@ -175,10 +182,14 @@ public class VentanaPrincipal {
 		JToolBar herramientas = new JToolBar();
 		superior.add(herramientas);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setToolTipText("Tipo de letra");
-		comboBox.setMaximumSize(new Dimension(230, 40));
-		herramientas.add(comboBox);
+		JComboBox TipoLetra = new JComboBox();
+		TipoLetra.setMaximumRowCount(10);
+		String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+		TipoLetra.setModel(new DefaultComboBoxModel(fonts));
+		TipoLetra.setSelectedIndex(303);
+		TipoLetra.setToolTipText("Tipo de letra");
+		TipoLetra.setMaximumSize(new Dimension(230, 40));
+		herramientas.add(TipoLetra);
 
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		herramientas.add(horizontalStrut);
@@ -241,14 +252,12 @@ public class VentanaPrincipal {
 		bAlinearDer.setToolTipText("Alinear a la derecha");
 		herramientas.add(bAlinearDer);
 
-		Box verticalBox = Box.createVerticalBox();
-		herramientas.add(verticalBox);
-
 		JScrollPane center = new JScrollPane();
-		center.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		center.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		frame.getContentPane().add(center, BorderLayout.CENTER);
 
 		texto = new JTextPane();
+		texto.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		center.setViewportView(texto);
 
 
@@ -266,7 +275,8 @@ public class VentanaPrincipal {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO pregunta guardar previo cambiar a nuevo
+				if (!texto.getText().isEmpty()) {
+				}
 
 				texto.setText(null);
 			}
@@ -327,6 +337,17 @@ public class VentanaPrincipal {
 		});
 
 		//Formato//
+		TipoLetra.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Editor.ponerTipoLetra(texto.getStyledDocument(), texto.getSelectionStart(), texto.getSelectionEnd(), 
+									  fonts[TipoLetra.getSelectedIndex()]);
+				
+			}
+		});
+
+		
 		FNegrita.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

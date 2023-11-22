@@ -71,6 +71,11 @@ public class BuscarYReemplazar extends JFrame {
         btnReemplazar.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
+        		if (textField.getText().isBlank()){
+        			VentanaMensaje a = new VentanaMensaje("Introduzaca una palabra para buscar");
+        			a.setVisible(true);
+        			return;
+        		}
         		coincide = TextUtilities.buscaYReemplaza(texto, textField.getText(), textField_1.getText(), false);
         		if (!coincide) {
         			VentanaMensaje a = new VentanaMensaje("No hay coincidencias");
@@ -88,6 +93,12 @@ public class BuscarYReemplazar extends JFrame {
         JButton btnReemplazarTodo = new JButton("Reemplazar Todo");
         btnReemplazarTodo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		if (textField.getText().isBlank()){
+        			VentanaMensaje a = new VentanaMensaje("Introduzaca una palabra para buscar");
+        			a.setVisible(true);
+        			return;
+        		}
+        		
         		coincide = TextUtilities.buscaYReemplaza(texto, textField.getText(), textField_1.getText(), true);
         		if (!coincide) {
         			VentanaMensaje a = new VentanaMensaje("No hay coincidencias");

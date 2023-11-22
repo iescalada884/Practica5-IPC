@@ -10,13 +10,18 @@ public class TextUtilities {
 	 * @param cambio
 	 * @param todo TRUE reemplza todas las coincidencias
 	 * 			   FALSE reemplza la primera coincidencia a partir de la seleccion y coloca el cursor en la siguiente
-	 * @return TRUE si quedan palabras para sustituir
+	 * @return TRUE si quedan palabras para sustituir o se ha sustituido con exito
 	 */
 	public static boolean buscaYReemplaza(JTextPane texto,String objetivo, String cambio, boolean todo) {
 		String text = texto.getText();
+		boolean hayReemplazo = false;
+		
 		//Elegir entre todo o a partir del cursor 1 a 1
 		if (todo) {
-			texto.setText(text.replaceAll(objetivo, cambio));
+			if (text.contains(objetivo)) {
+				texto.setText(text.replaceAll(objetivo, cambio));
+				hayReemplazo = true;
+			}
 
 		} else {
 			int cPos = texto.getSelectionStart();;
@@ -30,33 +35,34 @@ public class TextUtilities {
 
 			text = text.replaceFirst(objetivo, cambio);
 
-
+			//Anadimos texto con la sustitucion
 			try {
 				text = texto.getText(0, cPos) + text;
 			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
+
 			texto.setText(text);
 
-			//Si hay mas palabras colocamos alli el cursor
+			//Buscamos si hay mas palabras para marcar con el cursor
 			int newpos = text.indexOf(objetivo, cPos);
 			if (newpos >= 0) {
 				texto.setSelectionStart(newpos);
 				texto.setSelectionEnd(newpos + objetivo.length());
-				
-				return true;
+
+				hayReemplazo = true;
 			} else {
-				//vuelta al comienzo
+				//vuelta a revisar desde el principio 
 				newpos = text.indexOf(objetivo);
 				if (newpos >= 0) {
 					texto.setSelectionStart(newpos);
 					texto.setSelectionEnd(newpos + objetivo.length());
-					return true;
+					hayReemplazo = true;
 				}
 			}
 		}
-		
-		return false;
+
+		return hayReemplazo;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Window.Type;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class VentanaMensaje extends JFrame {
 
@@ -17,6 +18,7 @@ public class VentanaMensaje extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public VentanaMensaje(String mensaje) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaMensaje.class.getResource("/media/icons8-signo-de-exclamación-25.png")));
 		setType(Type.POPUP);
 		setResizable(false);
 		setAlwaysOnTop(true);
@@ -32,7 +34,7 @@ public class VentanaMensaje extends JFrame {
         JLabel Msg = new JLabel(mensaje);
         Msg.setHorizontalAlignment(SwingConstants.CENTER);
         Msg.setBounds(10, 10, 266, 57);
-        Msg.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        Msg.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 
         // Crear un bot�n "OK"
         JButton okButton = new JButton("OK");
