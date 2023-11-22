@@ -48,10 +48,11 @@ public class TextUtilities {
 			} else {
 				//vuelta al comienzo
 				newpos = text.indexOf(objetivo);
-				if (newpos >= 0) 
+				if (newpos >= 0) {
 					texto.setSelectionStart(newpos);
 					texto.setSelectionEnd(newpos + objetivo.length());
-				return true;
+					return true;
+				}
 			}
 		}
 		

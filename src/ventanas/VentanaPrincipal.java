@@ -1,4 +1,4 @@
-package main;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -29,13 +29,10 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
-import javax.swing.text.BadLocationException;
 
 import TextUtilities.Editor;
-import TextUtilities.TextUtilities;
-import javax.swing.DropMode;
 
-public class ventanaPrincipal {
+public class VentanaPrincipal {
 
 	private JFrame frame;
 
@@ -48,7 +45,7 @@ public class ventanaPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ventanaPrincipal window = new ventanaPrincipal();
+					VentanaPrincipal window = new VentanaPrincipal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +57,7 @@ public class ventanaPrincipal {
 	/**
 	 * Create the application.
 	 */
-	public ventanaPrincipal() {
+	public VentanaPrincipal() {
 		initialize();
 	}
 
@@ -79,7 +76,7 @@ public class ventanaPrincipal {
 		JMenuBar menu = new JMenuBar();
 		superior.add(menu);
 
-		/*Pestaña de Archivo*/
+		/*Pesta�a de Archivo*/
 		JMenu Archivo = new JMenu("Archivo");
 		Archivo.setMnemonic('a');
 		menu.add(Archivo);
@@ -110,7 +107,7 @@ public class ventanaPrincipal {
 		ACerrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK));
 		Archivo.add(ACerrar);
 
-		/*Pestaña de Edicion*/
+		/*Pesta�a de Edicion*/
 		JMenu Edicion = new JMenu("Edicion");
 		Edicion.setMnemonic('e');
 		Edicion.setHorizontalAlignment(SwingConstants.LEFT);
@@ -145,17 +142,17 @@ public class ventanaPrincipal {
 
 		JMenuItem FAIzquierda = new JMenuItem("Izquierda");
 		FAIzquierda.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
-		FAIzquierda.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
+		FAIzquierda.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
 		FAlineamiento.add(FAIzquierda);
 
 		JMenuItem FACentro = new JMenuItem("Centro");
 		FACentro.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
-		FACentro.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-25 .png")));
+		FACentro.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-25 .png")));
 		FAlineamiento.add(FACentro);
 
 		JMenuItem FADerecha = new JMenuItem("Derecha");
 		FADerecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
-		FADerecha.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/alinearDerecha.png")));
+		FADerecha.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/alinearDerecha.png")));
 		FAlineamiento.add(FADerecha);
 
 		JSeparator separator_2 = new JSeparator();
@@ -186,20 +183,20 @@ public class ventanaPrincipal {
 		herramientas.add(horizontalStrut);
 
 		JButton bTamano = new JButton("");
-		bTamano.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
-		bTamano.setSelectedIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
-		bTamano.setToolTipText("cambiar tamaño letra");
+		bTamano.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
+		bTamano.setSelectedIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-texto-24.png")));
+		bTamano.setToolTipText("cambiar tama�o letra");
 		herramientas.add(bTamano);
 
 		JButton bColor = new JButton("");
-		bColor.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
+		bColor.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-color-de-texto-25.png")));
 		bColor.setToolTipText("color del texto");
 		bColor.setVerticalAlignment(SwingConstants.BOTTOM);
 		herramientas.add(bColor);
 
 		JButton bNegrita = new JButton("");
 		bNegrita.setToolTipText("Negrita");
-		bNegrita.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-negrita-25.png")));
+		bNegrita.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-negrita-25.png")));
 		herramientas.add(bNegrita);
 
 		bNegrita.addMouseListener(new MouseAdapter() { 
@@ -210,30 +207,36 @@ public class ventanaPrincipal {
 		});
 
 		JButton bCursiva = new JButton("");
-		bCursiva.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-cursiva-25.png")));
+		bCursiva.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-cursiva-25.png")));
 		bCursiva.setToolTipText("cursiva");
 		herramientas.add(bCursiva);
 
 		JButton bSubrayar = new JButton("");
-		bSubrayar.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-subrayar-25.png")));
+		bSubrayar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				subrayado();
+			}
+		});
+		bSubrayar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-subrayar-25.png")));
 		bSubrayar.setToolTipText("subrayar");
 		bSubrayar.setVerticalAlignment(SwingConstants.BOTTOM);
 		herramientas.add(bSubrayar);
 
 		JButton bAlinearIz = new JButton("");
 		bAlinearIz.setToolTipText("Alinear izquierda");
-		bAlinearIz.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
+		bAlinearIz.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-alinear-a-la-izquierda-24.png")));
 		herramientas.add(bAlinearIz);
 
 
 
 		JButton bAlinearCen = new JButton("");
-		bAlinearCen.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-25 .png")));
+		bAlinearCen.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/icons8-alinear-al-centro-25 .png")));
 		bAlinearCen.setToolTipText("Alinear centro");
 		herramientas.add(bAlinearCen);
 
 		JButton bAlinearDer = new JButton("");
-		bAlinearDer.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/media/alinearDerecha.png")));
+		bAlinearDer.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/media/alinearDerecha.png")));
 		bAlinearDer.setToolTipText("Alinear a la derecha");
 		herramientas.add(bAlinearDer);
 
@@ -316,7 +319,8 @@ public class ventanaPrincipal {
 		EBuscarReemplazar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TextUtilities.buscaYReemplaza(texto,"hola", "pene", false);
+				BuscarYReemplazar vent = new BuscarYReemplazar(texto);
+				vent.setVisible(true);
 			}
 		});
 
@@ -398,6 +402,10 @@ public class ventanaPrincipal {
 
 	private void cursiva() {
 		Editor.ponerEnCursiva(texto.getStyledDocument(), texto.getSelectionStart(), texto.getSelectionEnd());
+	}
+	
+	private void subrayado() {
+		Editor.ponerSubrayado(texto.getStyledDocument(), texto.getSelectionStart(), texto.getSelectionEnd());
 	}
 
 	private void alinear(Editor.Alienamientos alineacion) {
