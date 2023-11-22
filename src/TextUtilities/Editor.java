@@ -2,12 +2,14 @@ package TextUtilities;
 
 import java.awt.Color;
 
+
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 public class Editor {
-
+	public enum Alienamientos{CENTRAR, DERECHA, IZQUIERDA}
+	 
 	public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int finSeleccion, boolean poner) {
 		//Si poner es true pone en negrita, si es falso quita la negrita
 
@@ -68,7 +70,7 @@ public class Editor {
 		doc.setParagraphAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, centrar, false);
 	}
 
-	public void alinearTextoIzquierda(StyledDocument doc, int inicioSeleccion, int finSeleccion) {
+	public static void alinearTextoIzquierda(StyledDocument doc, int inicioSeleccion, int finSeleccion) {
 		SimpleAttributeSet centrar = new SimpleAttributeSet();
 
 		StyleConstants.setAlignment(centrar, StyleConstants.ALIGN_LEFT);
