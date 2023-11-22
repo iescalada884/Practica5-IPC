@@ -104,13 +104,15 @@ public class Editor {
 	 * Mantiene el resto de atributos del texto
 	 */
 	public static void ponerTipoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, String family) {
+		Element element;
+		AttributeSet attributes;
 		//bucle for que recorre todas las letras a modificar
     	for (int i = inicioSeleccion; i <= finSeleccion; i++) {
     		//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
     		SimpleAttributeSet atributos = new SimpleAttributeSet();
-    		Element element = doc.getCharacterElement(inicioSeleccion);
+    		element = doc.getCharacterElement(inicioSeleccion);
     		//atributos antiguos de cada letra
-    		AttributeSet attributes = element.getAttributes();
+    		attributes = element.getAttributes();
 	    	
 	    	/********************************************************************
 	    	 * 
@@ -142,13 +144,15 @@ public class Editor {
 	 * Mantiene el resto de atributos del texto
 	 */
 	public static void ponerTamanhoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, int tamanho) {
+		Element element;
+		AttributeSet attributes;
 		//bucle for que recorre todas las letras a modificar
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	Element element = doc.getCharacterElement(inicioSeleccion);
+	    	element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-	    	AttributeSet attributes = element.getAttributes();
+	    	attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
@@ -223,13 +227,15 @@ public class Editor {
 	 * Mantiene el resto de atributos del texto
 	 */
 	public static void ponerColor(StyledDocument doc, int inicioSeleccion, int finSeleccion, Color color) {
+		Element element;
+		AttributeSet attributes;
 		//bucle for que recorre todas las letras a modificar
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	Element element = doc.getCharacterElement(inicioSeleccion);
+	    	element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-	    	AttributeSet attributes = element.getAttributes();
+	    	attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
@@ -261,13 +267,15 @@ public class Editor {
 	 * Mantiene el resto de atributos del texto
 	 */
 	public static void ponerColorFondo(StyledDocument doc, int inicioSeleccion, int finSeleccion, Color color) {
+		Element element;
+		AttributeSet attributes;
 		//bucle for que recorre todas las letras a modificar
 	    for (int i = inicioSeleccion; i <= finSeleccion; i++) {
 	    	//nuevo attribute set donde guardar el formato del texto y modificar el campo correspondiente
 	    	SimpleAttributeSet atributos = new SimpleAttributeSet();
-	    	Element element = doc.getCharacterElement(inicioSeleccion);
+	    	element = doc.getCharacterElement(inicioSeleccion);
 	    	//atributos antiguos de cada letra
-	    	AttributeSet attributes = element.getAttributes();
+	    	attributes = element.getAttributes();
 		    
 		    /********************************************************************
 	    	 * 
