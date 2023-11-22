@@ -28,6 +28,8 @@ public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int f
 
 	    	StyleConstants.setBold(atributos, NoesNegrita);
 
+		StyleConstants.setFontFamily(atributos, StyleConstants.getFontFamily(attributes));
+
 	    	doc.setCharacterAttributes(i, 1, atributos, true);
 	    }
 	}
@@ -47,6 +49,8 @@ public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int f
 
 		    StyleConstants.setUnderline(atributos,NoesSubrayado);
 
+		StyleConstants.setFontFamily(atributos, StyleConstants.getFontFamily(attributes));
+
 	    	StyleConstants.setBold(atributos, StyleConstants.isBold(attributes));
 
 	    	doc.setCharacterAttributes(i, 1, atributos, true);
@@ -55,13 +59,25 @@ public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int f
 	
 	public static void ponerTipoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, String family) {
 		//Si poner es true pone en negrita, si es falso quita la negrita
+		Element element = doc.getCharacterElement(inicioSeleccion);
+	    	AttributeSet attributes = element.getAttributes();
+	    	boolean NoesSubrayado = !(StyleConstants.isUnderline(attributes));
+	    
+	    	for (int i = inicioSeleccion; i <= finSeleccion; i++) {
+	    		SimpleAttributeSet atributos = new SimpleAttributeSet();
+	    		element = doc.getCharacterElement(inicioSeleccion);
+		    	attributes = element.getAttributes();
 
+			StyleConstants.setItalic(atributos, StyleConstants.isItalic(attributes));
 
-		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		    StyleConstants.setUnderline(atributos,StyleConstants.isUnderline(attributes));
 
 		StyleConstants.setFontFamily(atributos, family);
 
-		doc.setCharacterAttributes(inicioSeleccion, finSeleccion - inicioSeleccion, atributos, true);
+	    	StyleConstants.setBold(atributos, StyleConstants.isBold(attributes));
+
+	    	doc.setCharacterAttributes(i, 1, atributos, true);
+	    }
 	}
 	
 	public static void ponerTamanhoLetra(StyledDocument doc, int inicioSeleccion, int finSeleccion, int tamanho) {
@@ -84,6 +100,8 @@ public static void ponerEnNegrita(StyledDocument doc, int inicioSeleccion, int f
 		    attributes = element.getAttributes();
 
 			StyleConstants.setItalic(atributos, NoesCursiva);
+
+			StyleConstants.setFontFamily(atributos, StyleConstants.getFontFamily(attributes));
 
 		    StyleConstants.setUnderline(atributos,StyleConstants.isUnderline(attributes));
 
